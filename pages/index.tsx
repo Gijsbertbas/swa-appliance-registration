@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { generateClient } from "aws-amplify/data";
 import type { Schema } from "@/amplify/data/resource";
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { InfoModal } from "./_info";
+import { InfoModal } from "../components/info";
 
 const client = generateClient<Schema>();
 
@@ -79,15 +79,15 @@ export default function App() {
               width: "36px",
               height: "36px",
               borderRadius: "8px",
-              backgroundColor: "#78C896",
+              backgroundColor: "#5082A0",
               color: "white",
               border: "none",
               cursor: "pointer",
               fontWeight: "bold",
               boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#78C896")}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#003C5A")}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
             onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(1px)")}
             onMouseUp={(e) => (e.currentTarget.style.transform = "translateY(0)")}
           >
@@ -96,7 +96,7 @@ export default function App() {
             onClick={signOut}
             style={{
               padding: "0.5rem 1rem",
-              backgroundColor: "#78C896",
+              backgroundColor: "#5082A0",
               color: "white",
               border: "none",
               borderRadius: "8px",
@@ -104,8 +104,8 @@ export default function App() {
               fontWeight: "bold",
               whiteSpace: "nowrap",
             }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#78C896")}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#003C5A")}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
           >
             Uitloggen
           </button>

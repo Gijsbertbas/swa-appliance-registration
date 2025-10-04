@@ -75,9 +75,11 @@ export function InfoModal({ open, onClose }: InfoModalProps) {
               padding: "0.5rem 1rem",
               borderRadius: 8,
               border: "1px solid #ddd",
-              background: "#78C896",
+              background: "#5082A0",
               cursor: "pointer",
             }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#003C5A")}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
           >
             Sluiten
           </button>
