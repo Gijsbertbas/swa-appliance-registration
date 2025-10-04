@@ -18,16 +18,4 @@ export const auth = defineAuth({
       },
     },
   },
-userPool: {
-    policies: {
-      passwordPolicy: {
-        minimumLength: 6,
-        requireLowercase: false,
-        requireUppercase: false,
-        requireNumbers: false,
-        requireSymbols: false,
-        temporaryPasswordValidityDays: 7,
-      },
-    },
-  },
 });

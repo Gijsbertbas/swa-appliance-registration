@@ -32,15 +32,15 @@ export default function App() {
   }
 
   function confirmAndDelete(id: string) {
-  const ok = window.confirm("Weet je zeker dat je deze regel wilt verwijderen?");
-  if (!ok) return;
-  client.models.ApplianceUsage.delete({ id })
-    .catch((err) => {
-      console.error("Delete failed:", err);
-      alert("Verwijderen is mislukt.");
-    });
-}
-    
+    const ok = window.confirm("Weet je zeker dat je deze regel wilt verwijderen?");
+    if (!ok) return;
+    client.models.ApplianceUsage.delete({ id })
+      .catch((err) => {
+        console.error("Delete failed:", err);
+        alert("Verwijderen is mislukt.");
+      });
+  }
+
   function deleteRecord(id: string) {
     client.models.ApplianceUsage.delete({ id })
   }
@@ -60,55 +60,57 @@ export default function App() {
 
   return (
     <main style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-<div
-  style={{
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: "1rem",
-    gap: "1rem",
-  }}
->
-  <h1 style={{ margin: 0 }}>HAT | HuishoudApparatuur Tracker</h1>
-  <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
-<button
-  onClick={() => setIsInfoOpen(true)}
-  aria-label="Informatie"
-  title="Informatie"
-  style={{
-    width: "36px",
-    height: "36px",
-    borderRadius: "8px",
-    backgroundColor: "#0070f3",
-    color: "white",
-    border: "none",
-    cursor: "pointer",
-    fontWeight: "bold",
-    boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-  }}
-  onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#0059c9")}
-  onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#0070f3")}
-  onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(1px)")}
-  onMouseUp={(e) => (e.currentTarget.style.transform = "translateY(0)")}
->
-  i
-</button>    <button
-      onClick={signOut}
-      style={{
-        padding: "0.5rem 1rem",
-        backgroundColor: "#18a128ff",
-        color: "white",
-        border: "none",
-        borderRadius: "8px",
-        cursor: "pointer",
-        fontWeight: "bold",
-        whiteSpace: "nowrap",
-      }}
-    >
-      Uitloggen
-    </button>
-  </div>
-</div>
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          marginBottom: "1rem",
+          gap: "1rem",
+        }}
+      >
+        <h1 style={{ margin: 0 }}>HAT | HuishoudApparatuur Tracker</h1>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+          <button
+            onClick={() => setIsInfoOpen(true)}
+            aria-label="Informatie"
+            title="Informatie"
+            style={{
+              width: "36px",
+              height: "36px",
+              borderRadius: "8px",
+              backgroundColor: "#78C896",
+              color: "white",
+              border: "none",
+              cursor: "pointer",
+              fontWeight: "bold",
+              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#78C896")}
+            onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(1px)")}
+            onMouseUp={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+          >
+            i
+          </button>    <button
+            onClick={signOut}
+            style={{
+              padding: "0.5rem 1rem",
+              backgroundColor: "#78C896",
+              color: "white",
+              border: "none",
+              borderRadius: "8px",
+              cursor: "pointer",
+              fontWeight: "bold",
+              whiteSpace: "nowrap",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
+            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#78C896")}
+          >
+            Uitloggen
+          </button>
+        </div>
+      </div>
       <div style={{ marginBottom: "2rem" }}>
         <h2>Selecteer apparaat dat nu gebruikt wordt:</h2>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
@@ -163,7 +165,7 @@ export default function App() {
           ))}
         </ul>
       </div>
-    <InfoModal open={isInfoOpen} onClose={() => setIsInfoOpen(false)} />
+      <InfoModal open={isInfoOpen} onClose={() => setIsInfoOpen(false)} />
     </main>
-);
+  );
 }

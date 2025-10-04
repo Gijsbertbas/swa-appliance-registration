@@ -75,7 +75,7 @@ export function InfoModal({ open, onClose }: InfoModalProps) {
               padding: "0.5rem 1rem",
               borderRadius: 8,
               border: "1px solid #ddd",
-              background: "#18a128ff",
+              background: "#78C896",
               cursor: "pointer",
             }}
           >
