@@ -68,6 +68,7 @@ export default function App() {
             aria-label="Informatie"
             title="Informatie"
             className="btn btn-primary btn-icon"
+            style={{ padding: "0.5rem 1rem", whiteSpace: "nowrap" }}
           >
             i
           </button>
