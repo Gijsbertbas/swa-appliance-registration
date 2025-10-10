@@ -6,17 +6,21 @@ import { InfoModal } from "../components/info";
 
 const client = generateClient<Schema>();
 
-const APPLIANCES = [
-  "Wasmachine",
-  "Afwasmachine",
-  "Droger",
-  "Oven",
-  "Kookplaat",
-  "Airco",
-  "Verwarming",
-  "Stofzuiger",
-  "Auto laden",
-];
+
+const APPLIANCES: Record<string, string> = {
+  Wasmachine: "Je hebt de wasmachine aangezet of gaat dit nu doen",
+  Vaatwasser: "Je hebt de vaatwasser aangezet of gaat dit nu doen",
+  Droger: "Je hebt de droger aangezet of gaat dit nu doen",
+  Oven: "Je hebt de oven aangezet of gaat dit nu doen",
+  Kookplaat: "Je kookt elektrisch en bent nu aan het koken",
+  Airco: "Je hebt de airco aangezet of gaat dit nu doen",
+  Warmtepomp: "Je hebt een warmtepomp en draait de CV minstens 1 graad op",
+  Hybride: "Je hebt een hybride warmtepomp en draait de CV minstens 1 graad op",
+  "CV ketel": "Je stookt op gas en draait de CV minstens 1 graad op",
+  Stofzuiger: "Je start nu met stofzuigen",
+  "Auto laden": "Je bent je elektrische auto aan het laden",
+  "Fiets laden": "Je bent je elektrische fiets aan het laden",
+};
 
 export default function App() {
 
@@ -41,10 +45,6 @@ export default function App() {
       });
   }
 
-  function deleteRecord(id: string) {
-    client.models.ApplianceUsage.delete({ id })
-  }
-
   useEffect(() => {
     listUsageLogs();
   }, []);
@@ -59,112 +59,79 @@ export default function App() {
   }
 
   return (
-    <main style={{ padding: "2rem", maxWidth: "800px", margin: "0 auto" }}>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          marginBottom: "1rem",
-          gap: "1rem",
-        }}
-      >
-        <h1 style={{ margin: 0 }}>HAT | HuishoudApparatuur Tracker</h1>
-        <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
+    <main className="app-container">
+      <div className="header">
+        <h1>HAT | HuishoudApparatuur Tracker</h1>
+        <div className="header-actions">
           <button
             onClick={() => setIsInfoOpen(true)}
             aria-label="Informatie"
             title="Informatie"
-            style={{
-              width: "36px",
-              height: "36px",
-              borderRadius: "8px",
-              backgroundColor: "#5082A0",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-              fontWeight: "bold",
-              boxShadow: "0 1px 2px rgba(0,0,0,0.05)",
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#003C5A")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
-            onMouseDown={(e) => (e.currentTarget.style.transform = "translateY(1px)")}
-            onMouseUp={(e) => (e.currentTarget.style.transform = "translateY(0)")}
+            className="btn btn-primary btn-icon"
           >
             i
-          </button>    <button
+          </button>
+          <button
             onClick={signOut}
-            style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: "#5082A0",
-              color: "white",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontWeight: "bold",
-              whiteSpace: "nowrap",
-            }}
-            onMouseOver={(e) => (e.currentTarget.style.backgroundColor = "#003C5A")}
-            onMouseOut={(e) => (e.currentTarget.style.backgroundColor = "#5082A0")}
+            className="btn btn-primary"
+            style={{ padding: "0.5rem 1rem", whiteSpace: "nowrap" }}
           >
             Uitloggen
           </button>
         </div>
       </div>
+
       <div style={{ marginBottom: "2rem" }}>
-        <h2>Selecteer apparaat dat nu gebruikt wordt:</h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))", gap: "1rem", marginBottom: "1rem" }}>
-          {APPLIANCES.map((appliance) => (
-            <button
-              key={appliance}
-              onClick={() => setSelectedAppliance(appliance)}
-              style={{
-                padding: "1rem",
-                backgroundColor: selectedAppliance === appliance ? "#0070f3" : "#f0f0f0",
-                color: selectedAppliance === appliance ? "white" : "black",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                fontWeight: selectedAppliance === appliance ? "bold" : "normal"
-              }}
-            >
-              {appliance}
-            </button>
-          ))}
+        <h2 className="section-title">Selecteer apparaat dat nu gebruikt wordt:</h2>
+
+        <div className="appliances">
+          {Object.keys(APPLIANCES).map((appliance) => {
+            const active = selectedAppliance === appliance;
+            return (
+              <button
+                key={appliance}
+                onClick={() => setSelectedAppliance(appliance)}
+                className={`appliance-btn ${active ? "active" : "inactive"}`}
+              >
+                {appliance}
+              </button>
+            );
+          })}
         </div>
 
         {selectedAppliance && (
-          <div style={{ marginTop: "1rem" }}>
-            <p>Selectie: <strong>{selectedAppliance}</strong></p>
-            <button
-              onClick={handleSubmit}
-              style={{
-                padding: "0.75rem 2rem",
-                backgroundColor: "#0070f3",
-                color: "white",
-                border: "none",
-                borderRadius: "8px",
-                cursor: "pointer",
-                fontSize: "1rem",
-                fontWeight: "bold"
-              }}
-            >
+          <div className="confirm">
+            {/* <p>
+            Selectie: <strong>{selectedAppliance}</strong>
+          </p> */}
+            <div className="confirm-info" aria-live="polite">
+              {APPLIANCES[selectedAppliance] ?? "Geen extra informatie beschikbaar."}
+            </div>
+            <button onClick={handleSubmit} className="btn-confirm">
               Bevestig
             </button>
           </div>
         )}
       </div>
 
-      <div>
-        <h2>Recente acties:</h2>
+      <div className="recent-actions">
+        <h2 className="section-title">Recente acties:</h2>
         <ul>
-          {usageLogs.slice(-10).reverse().map((log) => (
-            <li key={log.id} onClick={() => confirmAndDelete(log.id)} style={{ cursor: "pointer" }} title="Klik om te verwijderen">
-              {log.appliance} - {new Date(log.createdAt).toLocaleString()}
-            </li>
-          ))}
+          {usageLogs
+            .slice(-10)
+            .reverse()
+            .map((log) => (
+              <li
+                key={log.id}
+                onClick={() => confirmAndDelete(log.id)}
+                title="Klik om te verwijderen"
+              >
+                {log.appliance} - {new Date(log.createdAt).toLocaleString()}
+              </li>
+            ))}
         </ul>
       </div>
+
       <InfoModal open={isInfoOpen} onClose={() => setIsInfoOpen(false)} />
     </main>
   );
