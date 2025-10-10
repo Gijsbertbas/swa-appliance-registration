@@ -119,8 +119,8 @@ export default function App() {
         <h2 className="section-title">Recente acties:</h2>
         <ul>
           {usageLogs
-            .slice(-10)
-            .reverse()
+            .sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+            .slice(0, 10)
             .map((log) => (
               <li
                 key={log.id}
